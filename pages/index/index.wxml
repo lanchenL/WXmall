@@ -1,0 +1,11 @@
+<view class="pyg_index" >
+  <SearchInput>
+    
+  </SearchInput>
+  <swiper    autoplay interval="2000" circular indicator-dots>
+    <swiper-item wx:for="{{swiperList}}" wx:key="index" wx:for-item="item">
+      <image class="" src="{{item.image_src}}" mode="widthFix" lazy-load="false">
+      </image>
+    </swiper-item>
+  </swiper>
+</view>
