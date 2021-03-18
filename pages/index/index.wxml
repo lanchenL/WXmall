@@ -1,11 +1,36 @@
 <view class="pyg_index" >
   <SearchInput>
-    
   </SearchInput>
-  <swiper    autoplay interval="2000" circular indicator-dots>
-    <swiper-item wx:for="{{swiperList}}" wx:key="index" wx:for-item="item">
-      <image class="" src="{{item.image_src}}" mode="widthFix" lazy-load="false">
+  <!-- 宽100% 高150 -->
+  <view class="index_swiper" >
+    <swiper  autoplay interval="2000" circular indicator-dots> 
+      <swiper-item wx:for="{{swiperList}}" wx:key="index" wx:for-item="item">
+        <navigator>
+          <!-- 宽320 高240  图片 750 340 -->
+          <image class="" src="{{item.image_src}}" mode="widthFix" lazy-load="false">
+          </image>
+        </navigator>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class="index_cate">
+    <navigator wx:for="{{catesList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+      <image  src="{{item.image_src}}" mode="widthFix" >
       </image>
-    </swiper-item>
-  </swiper>
+    </navigator>
+  </view> 
+  <view class="index_floor"> 
+    <view class="index_group" wx:for="{{floorList}}" wx:for-index="i" wx:for-item="item" wx:key="i">
+      <view class="floor_title" >
+        <image  src="{{ item.floor_title.image_src }}" mode="widthFix" >
+        </image>
+      </view>
+      <view class="floor_list">
+        <navigator open-type="navigate" wx:for="{{item.product_list}}" wx:for-index="j" wx:for-item="jtem" wx:key="j">
+          <image src="{{ jtem.image_src }}" mode="{{j===0?'widthFix':'scaleToFill'}}" >
+          </image>
+        </navigator>
+      </view>
+    </view>
+  </view>
 </view>
