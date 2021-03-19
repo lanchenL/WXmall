@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "SearchInput": "../../components/SearchInput/SearchInput",
+    "tabs": "../../components/tabs/tabs"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

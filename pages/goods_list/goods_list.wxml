@@ -1,2 +1,21 @@
-<!--pages/goods_list/goods_list.wxml-->
-<text>pages/goods_list/goods_list.wxml</text>
+<SearchInput></SearchInput>
+<tabs tabs='{{tabs}}' bindtabsItemChange="handleTapItemChange">
+  <block wx:if="{{tabs[0].isActive}}" >
+    <view class="first_tab">
+      <navigator class="goods_item" wx:for="{{goodsList}}" wx:key="index" url="/pages/goods_detail/goods_detail?goods_id={{item.goods_id}}">
+        <!-- 左侧图片 -->
+        <view class="goods_img_wrap">
+          <image  src="{{!!item.goods_small_logo?item.goods_small_logo:'https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg'}}" mode="widthFix" >
+          </image>
+        </view>
+        <!-- 右侧商品 -->
+        <view class="goods_info_wrap">
+          <view class="goods_name">{{item.goods_name}}</view>
+          <view class="goods_price">{{item.goods_price}}</view>
+        </view>
+      </navigator>
+    </view>
+  </block>
+  <block wx:if="{{tabs[1].isActive}}" >1</block>
+  <block wx:if="{{tabs[2].isActive}}" >2</block>
+</tabs>

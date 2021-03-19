@@ -44,7 +44,7 @@ Page({
   },
   getSwiperList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata'
+      url: '/home/swiperdata'
     })
     .then((result) => {
       this.setData({
@@ -54,7 +54,7 @@ Page({
   },
   getCateList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/catitems'
+      url: '/home/catitems'
     })
     .then((result) => {
       this.setData({
@@ -64,10 +64,10 @@ Page({
   },
   getFloorList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/floordata'
+      url: '/home/floordata'
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       this.setData({
         floorList: result.data.message
       })

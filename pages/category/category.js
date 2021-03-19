@@ -7,7 +7,8 @@ Page({
   data: {
     leftMenuList: [], // 左边菜单的数据
     rightContent: [],  // 右边菜单的数据
-    currentIndex: 0   // 用于识别哪个菜单被选中
+    currentIndex: 0,   // 用于识别哪个菜单被选中
+    scrollTop: 0  // 自动回到顶部的位置
   },
   Cates: [],
   /**
@@ -40,25 +41,40 @@ Page({
 
     
   },
-  getCates() {
-    request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/categories'
-    })
-    .then((res) => {
-      this.Cates = res.data.message;
-      // 把接口的数据存起来
-      wx.setStorageSync("cates", {
-        time: Date.now(),
-        data: this.Cates
-      });
-      // 获取左边大菜单的数据
-      let leftMenuList = this.Cates.map(v => v.cat_name);
-      // 右边数据的列表
-      let rightContent = this.Cates[0].children;
-      this.setData({
-        leftMenuList,
-        rightContent
-      })
+  async getCates() {
+    // request({
+    //   url: '/categories'
+    // })
+    // .then((res) => {
+    //   this.Cates = res.data.message;
+    //   // 把接口的数据存起来
+    //   wx.setStorageSync("cates", {
+    //     time: Date.now(),
+    //     data: this.Cates
+    //   });
+    //   // 获取左边大菜单的数据
+    //   let leftMenuList = this.Cates.map(v => v.cat_name);
+    //   // 右边数据的列表
+    //   let rightContent = this.Cates[0].children;
+    //   this.setData({
+    //     leftMenuList,
+    //     rightContent
+    //   })
+    // })
+    const res = await request({ url: '/categories'  });
+    this.Cates = res.data.message;
+    // 把接口的数据存起来
+    wx.setStorageSync("cates", {
+      time: Date.now(),
+      data: this.Cates
+    });
+    // 获取左边大菜单的数据
+    let leftMenuList = this.Cates.map(v => v.cat_name);
+    // 右边数据的列表
+    let rightContent = this.Cates[0].children;
+    this.setData({
+      leftMenuList,
+      rightContent
     })
   },
   handleItemTap(e) {
@@ -66,7 +82,8 @@ Page({
     let rightContent = this.Cates[index].children;
     this.setData({
       currentIndex: index,
-      rightContent
+      rightContent,
+      scrollTop: 0  // 自动回到顶部的位置
     })
   }
 })
