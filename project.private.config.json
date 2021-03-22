@@ -13,7 +13,7 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/category/category",
+          "name": "商品分类",
           "pathName": "pages/category/category",
           "query": "",
           "scene": null
@@ -28,6 +28,12 @@
           "name": "商品列表",
           "pathName": "pages/goods_list/goods_list",
           "query": "cid=5",
+          "scene": null
+        },
+        {
+          "name": "购物车",
+          "pathName": "pages/cart/cart",
+          "query": "",
           "scene": null
         }
       ]

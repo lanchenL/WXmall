@@ -21,10 +21,14 @@ Page({
   },
   async getGoodsDetail(goods_id) {
     const  goodsObj = await request({url:"/goods/detail", data: {goods_id}});
-    // console.log(goodsObj);
+    console.log(goodsObj);
+    // 将轮播图图片的http开头的改成https
     goodsObj.data.message.pics.forEach((v, i) => {
-      v.pics_mid = v.pics_mid.replace(/http/, 'https')
+      v.pics_mid = v.pics_mid.replace(/http/, 'https');
     });
+    // 将goods_small_logo的http改成https
+    goodsObj.data.message.goods_small_logo = goodsObj.data.message.goods_small_logo.replace(/http/, 'https');
+    
     this.GoodsInfo = goodsObj.data.message;
     this.setData({
       goodsObj: {
@@ -57,6 +61,7 @@ Page({
     if(index === -1) {
       // 第一次加入购物车
       this.GoodsInfo.num = 1;
+      this.GoodsInfo.checked=true;
       cart.push(this.GoodsInfo);
     }else {
       // 已经有了购物车数据
