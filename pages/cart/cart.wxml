@@ -25,42 +25,48 @@
     购物车
   </view>
   <view class="cart_main">
-    <view class="cart_item" wx:for="{{cart}}" wx:for-index="index" wx:key="index">
-      <!-- 复选框 -->
-      <view class="cart_chk_wrap">
-        <checkbox-group bindchange="handleItemChange" data-id="{{item.goods_id}}">
-          <checkbox checked="{{item.checked}}" >
-          </checkbox>
-        </checkbox-group>
-      </view>
-      <!-- 商品图片 -->
-      <navigator class="cart_img_wrap" open-type="navigate">
-        <image src="{{item.goods_small_logo}}" mode="widthFix">
-        </image>
-      </navigator>
-      <!-- 商品信息 -->
-      <view class="cart_info_wrap">
-        <view class="goods_name">
-         {{item.goods_name}}
+    <block wx:if="{{cart.length != 0}}">
+      <view class="cart_item" wx:for="{{cart}}" wx:for-index="index" wx:key="index">
+        <!-- 复选框 -->
+        <view class="cart_chk_wrap">
+          <checkbox-group bindchange="handleItemChange" data-id="{{item.goods_id}}">
+            <checkbox checked="{{item.checked}}" >
+            </checkbox>
+          </checkbox-group>
         </view>
-        <view class="goods_price_wrap">
-          <view class="goods_price">
-            ￥{{item.goods_price}}
+        <!-- 商品图片 -->
+        <navigator class="cart_img_wrap" open-type="navigate">
+          <image src="{{item.goods_small_logo}}" mode="widthFix">
+          </image>
+        </navigator>
+        <!-- 商品信息 -->
+        <view class="cart_info_wrap">
+          <view class="goods_name">
+          {{item.goods_name}}
           </view>
-          <view class="cart_num_tool">
-            <view class="num_edit" bindtap="handleItemNumEdit" data-id="{{item.goods_id}}" data-operation="{{-1}}">
-              -
+          <view class="goods_price_wrap">
+            <view class="goods_price">
+              ￥{{item.goods_price}}
             </view>
-            <view class="goods_num">
-              {{item.num}}
-            </view>
-            <view class="num_edit" bindtap="handleItemNumEdit" data-id="{{item.goods_id}}" data-operation="{{1}}">
-              +
+            <view class="cart_num_tool">
+              <view class="num_edit" bindtap="handleItemNumEdit" data-id="{{item.goods_id}}" data-operation="{{-1}}">
+                -
+              </view>
+              <view class="goods_num">
+                {{item.num}}
+              </view>
+              <view class="num_edit" bindtap="handleItemNumEdit" data-id="{{item.goods_id}}" data-operation="{{1}}">
+                +
+              </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
+    </block>
+    <block wx:else>
+      <image  src="https://dcdn.it120.cc/2021/03/23/8ffd6a4d-6a78-40f5-8144-6e42e78010cf.jpg" mode="widthFix" >
+      </image>
+    </block>
   </view>
   
 </view>
@@ -84,7 +90,7 @@
     </view>
   </view>
   <!-- 结算 -->
-  <view class="order_pay_warp">
+  <view class="order_pay_warp" bindtap="handlePay">
     结算（{{totalNum}}）
   </view>
 </view>

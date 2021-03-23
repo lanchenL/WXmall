@@ -1,4 +1,5 @@
 // pages/cart/cart.js
+import {showModal, showToast} from "../../utils/asyncWX";
 Page({
 
   /**
@@ -17,6 +18,7 @@ Page({
     // 使用every数组方法，会遍历数组中的每一个元素，只有每一个元素都满足设定的条件才会返回true（空数组的返回值也是true），有一个不满足的话直接返回false。对应some（）方法
     console.log(cart);
     const address = wx.getStorageSync('address');
+    console.log('address',address);
     this.setCart(cart);
     this.setData({
       address,
@@ -28,6 +30,7 @@ Page({
     wx.chooseAddress({
       success: (result)=>{
         // 存到缓存中
+        result.all = result.provinceName + result.cityName + result.countyName + result.detailInfo;
         wx.setStorageSync('address', result);
       },
       fail: (err)=>{
@@ -91,13 +94,38 @@ Page({
     }
   },
   // 计算点击+ -时商品的数量
-  handleItemNumEdit(e) {
+   async handleItemNumEdit(e) {
     console.log(e.currentTarget.dataset);
     const {id, operation} = e.currentTarget.dataset;
     let {cart} = this.data;
     const index = cart.findIndex( v => v.goods_id === id );
-    cart[index].num += operation;
-    // 设置回data和缓存
-    this.setCart(cart); 
+    if(cart[index].num === 1 && operation === -1) {
+      const res = await showModal({content: '您是否要删除？'});
+      console.log(res);
+      if(res.confirm) {
+        cart.splice(index, 1);
+        this.setCart(cart);
+      }
+    }else {
+      cart[index].num += operation;
+      // 设置回data和缓存
+      this.setCart(cart); 
+    }
+  },
+  // 结算按钮，验证是否选择了商品，验证是否选择了收货地址
+  async handlePay() {
+    console.log('结算');
+    const {address, totalNum} = this.data;
+    if(!address.userName) {
+      await showToast({title: '您还没有选择收货地址'})
+      return
+    }
+    if(totalNum === 0) {
+      await showToast({title: '您还没有选购商品'})
+      return
+    }
+    wx.navigateTo({
+      url: '/pages/pay/pay',
+    });
   }
 })

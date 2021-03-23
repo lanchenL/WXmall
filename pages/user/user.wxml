@@ -1,2 +1,20 @@
-<!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="user_info_wrap">
+  <view class="user_img_wrap" wx:if="{{userinfo.avatarUrl}}">
+    <image class="user_big" src="{{userinfo.avatarUrl}}">
+
+    </image>
+    <view class="user_info">
+      <image class="user_icon" src="{{userinfo.avatarUrl}}">
+
+      </image>
+      <view class="user_name">
+        {{userinfo.nickName}}
+      </view>
+    </view>
+  </view>
+  <view class="user_btn" wx:else>
+    <navigator url="/pages/login/login" open-type="navigate">
+      登录
+    </navigator>
+  </view>
+</view>
