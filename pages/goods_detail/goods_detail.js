@@ -7,15 +7,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsObj: {}
+    goodsObj: {},
+    isCollect: false
   },
   // 定义一个全局的轮播图片
   GoodsInfo: {},
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    const {goods_id} = options;
+  onShow: function () {
+    let pages =  getCurrentPages();
+    let currentPage = pages[pages.length-1];
+    const {goods_id} = currentPage.options;
+
+    
     // console.log(goods_id);
     this.getGoodsDetail(goods_id);
   },
@@ -30,6 +35,12 @@ Page({
     goodsObj.data.message.goods_small_logo = goodsObj.data.message.goods_small_logo.replace(/http/, 'https');
     
     this.GoodsInfo = goodsObj.data.message;
+    // 获取缓存中的商品数组
+    let collect = wx.getStorageSync('collect') ||　[];
+    // 判断是否已经被收藏
+    let isCollect = collect.some( v => v.goods_id === this.GoodsInfo.goods_id);
+
+
     this.setData({
       goodsObj: {
         goods_name: goodsObj.data.message.goods_name,
@@ -38,7 +49,8 @@ Page({
         // 所以要进行修改 .webp => .jpg
         goods_introduce: goodsObj.data.message.goods_introduce.replace(/\.webp/g, '.jpg'),
         pics: goodsObj.data.message.pics
-      }
+      },
+      isCollect
     })
   },
   // 当顶点击轮播图图片实现预览功能
@@ -73,5 +85,36 @@ Page({
       icon: 'success',
       mask: true,
     });
+  },
+  // 点击收藏按钮
+  handleCollect() {
+    let isCollect = false;
+    let collect = wx.getStorageSync('collect') || [];
+    let index = collect.findIndex( v => v.goods_id === this.GoodsInfo.goods_id );
+    if(index !== -1) {
+      // 能找到
+      collect.splice(index, 1); // 取消收藏
+      isCollect = false;
+      wx.showToast({
+        title: '取消成功',
+        icon: 'success',
+        mask: true,
+      });
+    }else {
+      // 没有收藏
+      collect.push(this.GoodsInfo);
+      isCollect = true;
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'success',
+        mask: true,
+      });
+    }
+    // 存入缓存
+    wx.setStorageSync('collect', collect);
+    // 给data中的isCollect设置
+    this.setData({
+      isCollect
+    })
   }
 })

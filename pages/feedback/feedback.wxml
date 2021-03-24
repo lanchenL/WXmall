@@ -1,2 +1,3 @@
-<!--pages/feedback/feedback.wxml-->
-<text>pages/feedback/feedback.wxml</text>
+<tabs tabs='{{tabs}}' bindtabsItemChange="handleTapItemChange">
+  
+</tabs>
