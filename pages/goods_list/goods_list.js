@@ -41,7 +41,11 @@ Page({
    */
   onLoad: function (options) {
     // console.log(options);
-    this.QueryParams.cid = options.cid;
+    // 有无cid
+    this.QueryParams.cid = options.cid || '';
+    // 有无query
+    this.QueryParams.query = options.query || '';
+
     this.getGoodsList();
   },
   // 获取商品列表的数据

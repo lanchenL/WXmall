@@ -62,6 +62,7 @@ Page({
       urls
     });
   },
+  // 加入购物车
   handleCartAdd() {
     console.log('购物车',this.GoodsInfo);
     // 获取缓存中的购物车数据，没有时为[]
@@ -116,5 +117,19 @@ Page({
     this.setData({
       isCollect
     })
+  },
+  // 立即购买
+  handleBuy() {
+    console.log('购买');
+    let buynow = [];
+    
+    this.GoodsInfo.num = 1;
+    this.GoodsInfo.checked=true;
+    buynow.push(this.GoodsInfo);
+    // 直接覆盖掉上一次立即购买的东西
+    wx.setStorageSync("buynow", buynow);
+    wx.navigateTo({
+      url: '/pages/pay/pay',
+    });
   }
 })

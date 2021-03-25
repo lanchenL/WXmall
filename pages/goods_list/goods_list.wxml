@@ -5,7 +5,7 @@
       <navigator class="goods_item" wx:for="{{goodsList}}" wx:key="index" url="/pages/goods_detail/goods_detail?goods_id={{item.goods_id}}">
         <!-- 左侧图片 -->
         <view class="goods_img_wrap">
-          <image  src="{{!!item.goods_small_logo?item.goods_small_logo:'https://api-hmugo-web.itheima.net/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg'}}" mode="widthFix" >
+          <image  src="{{!!item.goods_small_logo?item.goods_small_logo:'https://dcdn.it120.cc/2021/03/25/86350bfd-02e8-45f9-a332-92779d4bff61.png'}}" mode="widthFix" >
           </image>
         </view>
         <!-- 右侧商品 -->

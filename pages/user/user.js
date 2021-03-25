@@ -17,5 +17,13 @@ Page({
       userinfo,
       collectNums: collect.length
     });
+  },
+  // 关于我们
+  handleAboutOur() {
+    wx.showToast({
+      title: '个人练习项目',
+      icon: 'none',
+      mask: true,
+    });
   }
 })

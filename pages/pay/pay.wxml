@@ -1,6 +1,11 @@
 <!-- 收货地址 -->
 <view class="revice_address_row">
-  <view  class="user_info_row">
+  <!-- 当没有选择收货地址时显示 -->
+  <view class="address_btn" wx:if="{{!address.userName}}">
+    <button bindtap="handleChooseAddress" type="primary" plain>获取收货地址</button>
+  </view>
+  <!-- 选择了收货地址时显示 -->
+  <view wx:else class="user_info_row">
     <view class="user_info">
       <view >
         收货人：{{address.userName}}

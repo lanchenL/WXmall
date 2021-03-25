@@ -15,7 +15,9 @@ Page({
   },
   onShow: function () {
     let cart = wx.getStorageSync('cart') || [];
-    
+    let buynow = wx.getStorageSync('buynow') || [];
+    // 判断是立即购买的还是从购物车中购买的
+    cart = buynow.length!=0?buynow:cart; 
     // 使用every数组方法，会遍历数组中的每一个元素，只有每一个元素都满足设定的条件才会返回true（空数组的返回值也是true），有一个不满足的话直接返回false。对应some（）方法
     console.log(cart);
     const address = wx.getStorageSync('address');
@@ -93,5 +95,19 @@ Page({
         console.log(error);
         await showToast({title: '支付失败'})
     }
+  },
+  // 点击获取地址的点击事件,调用小程序内置的api来获取,wx-chooseAddress
+  handleChooseAddress() {
+    
+    wx.chooseAddress({
+      success: (result)=>{
+        // 存到缓存中
+        result.all = result.provinceName + result.cityName + result.countyName + result.detailInfo;
+        wx.setStorageSync('address', result);
+      },
+      fail: (err)=>{
+        console.log(err);
+      }
+    });
   }
 })

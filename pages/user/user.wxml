@@ -22,7 +22,7 @@
   <view class="user_main">
     <!-- 历史足迹 -->
     <view class="history_wrap">
-      <navigator open-type="navigate">
+      <navigator open-type="navigate" url="/pages/collect/collect">
         <view class="his_num">
           0
         </view>
@@ -38,7 +38,7 @@
           收藏的商品
         </view>
       </navigator>
-      <navigator open-type="navigate">
+      <navigator open-type="navigate" url="/pages/collect/collect">
         <view class="his_num">
           0
         </view>
@@ -46,7 +46,7 @@
           关注的商品
         </view>
       </navigator>
-      <navigator open-type="navigate">
+      <navigator open-type="navigate" url="/pages/collect/collect">
         <view class="his_num">
           0
         </view>
@@ -104,17 +104,21 @@
         <view >
           4000-555-666
         </view>
+        <button open-type="contact">
+        </button>
       </view>
       <navigator class="app_info_item" url="/pages/feedback/feedback">
         意见反馈
       </navigator>
-      <view class="app_info_item">
+      <view class="app_info_item" bindtap="handleAboutOur">
         关于我们
       </view>
     </view>
     <!-- 推荐 -->
     <view class="recommend_wrap">
       把应用推荐给其他人
+      <button open-type="share">
+      </button>
     </view>
   </view>
 </view>
