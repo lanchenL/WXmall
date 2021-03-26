@@ -34,6 +34,10 @@ Page({
     // 将goods_small_logo的http改成https
     goodsObj.data.message.goods_small_logo = goodsObj.data.message.goods_small_logo.replace(/http/, 'https');
     
+    // 将富文本里面的https改成https
+    goodsObj.data.message.goods_introduce = goodsObj.data.message.goods_introduce.replace(/http:/, 'https:').replace(/data-src\=\"\/\/image/, 'data-src="https://image').replace(/src\=\"\/\/image/, 'src="https://image');
+    console.log('goodsObj.data.message.goods_introduce',goodsObj.data.message.goods_introduce);
+
     this.GoodsInfo = goodsObj.data.message;
     // 获取缓存中的商品数组
     let collect = wx.getStorageSync('collect') ||　[];

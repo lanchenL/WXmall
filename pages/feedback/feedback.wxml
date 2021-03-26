@@ -26,7 +26,7 @@
           + 
         </button>
         <view class="up_img_item" wx:for="{{chooseImgs}}" wx:key="*this" bindtap="handleRemoveImg" data-index="{{index}}">
-          <UpImg src="item"></UpImg>
+          <UpImg src="{{item}}"></UpImg>
         </view>
         
       </view>
